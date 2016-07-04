@@ -5,7 +5,7 @@ use System\Controller;
 class Actions extends Controller
 {
 
-    protected $store;
+    protected $store,$rest;
     protected $table = 'users';  //our default data table
 
     public function __construct()
@@ -15,6 +15,8 @@ class Actions extends Controller
         $this->store = $this->loadHelper('Txtdb',[
             'dir'      => APP_DIR.'cache/'
         ]);
+
+        $this->rest  = $this->loadHelper('Rest_Server');
 
        $this->loadPlugin('type_control');
     }
@@ -39,7 +41,7 @@ class Actions extends Controller
                 'message' => 'No Records Found'
             ];
 
-            return $this->response($response,parent::HTTP_NOT_FOUND);
+            return $this->rest->response($response,$this->rest->get_status('HTTP_NOT_FOUND'));
 
         }else{
             $response = [
@@ -47,7 +49,7 @@ class Actions extends Controller
                 'data'   => $data
             ];
 
-            return $this->response($response,parent::HTTP_OK);
+            return $this->rest->response($response);
 
         }
 
@@ -81,7 +83,7 @@ class Actions extends Controller
 
             $response = ['status' => 'error', 'message' => $message ];
 
-            return $this->response($response,parent::HTTP_BAD_REQUEST);
+            return $this->rest->response($response,$this->rest->get_status('HTTP_BAD_REQUEST'));
 
         }else{
 
@@ -90,11 +92,11 @@ class Actions extends Controller
             if($insert){
                 $response = ['status' => 'success', 'data' => ['id' => $insert]];
 
-                return $this->response($response);
+                return $this->rest->response($response);
             }else{
                 $response = ['status' => 'error', 'message' => 'Internal Server Error.'];
 
-                return $this->response($response,parent::HTTP_INTERNAL_SERVER_ERROR);
+                return $this->rest->response($response,$this->rest->get_status('HTTP_INTERNAL_SERVER_ERROR'));
             }
 
         }
@@ -132,7 +134,7 @@ class Actions extends Controller
 
             $response = ['status' => 'error', 'message' => "Provide at least one value." ];
 
-            return $this->response($response,parent::HTTP_BAD_REQUEST);
+            return $this->rest->response($response,$this->rest->get_status('HTTP_BAD_REQUEST'));
 
         }else{
             $insert = $this->store->update('users',$data,$id);
@@ -140,11 +142,11 @@ class Actions extends Controller
             if($insert){
                 $response = ['status' => 'success', 'data' => ['id' => $insert]];
 
-                return $this->response($response);
+                return $this->rest->response($response);
             }else{
                 $response = ['status' => 'error', 'message' => 'Internal Server Error.'];
 
-                return $this->response($response,parent::HTTP_INTERNAL_SERVER_ERROR);
+                return $this->rest->response($response,$this->rest->get_status('HTTP_INTERNAL_SERVER_ERROR'));
             }
 
         }
@@ -169,7 +171,7 @@ class Actions extends Controller
 
             $response = ['status' => 'error', 'message' => $message ];
 
-            return $this->response($response,parent::HTTP_BAD_REQUEST);
+            return $this->rest->response($response,$this->rest->get_status('HTTP_BAD_REQUEST'));
 
         }else{
 
@@ -178,11 +180,11 @@ class Actions extends Controller
             if($delete !== false){
                 $response = ['status' => 'success', 'message' => 'Record has been deleted'];
 
-                return $this->response($response);
+                return $this->rest->response($response);
             }else{
                 $response = ['status' => 'error', 'message' => 'Internal Server Error.'];
 
-                return $this->response($response,parent::HTTP_INTERNAL_SERVER_ERROR);
+                return $this->rest->response($response,$this->rest->get_status('HTTP_INTERNAL_SERVER_ERROR'));
             }
 
         }
