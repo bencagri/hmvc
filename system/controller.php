@@ -178,13 +178,28 @@ class Controller {
 
 	/**
 	 * @param $name
-	 * @return mixed
 	 */
-	public function loadHelper($name)
+	public function loadHelper()
 	{
-		require_once(APP_DIR .'helpers/'. strtolower($name) .'.php');
-		$helper = new $name;
-		return $helper;
+		$params = func_get_args();
+
+		$path = APP_DIR .'helpers/'. strtolower($params[0]) .'.php';
+
+		if(is_file($path)){
+			require_once($path);
+		}
+		else
+		{
+			$_SESSION['error_message'] = 'Helper File Missing';
+			$this->redirect('error');
+		}
+		if(count($params) > 1){
+			$class         = $params[0];
+			return new $class($params[1]);
+		}
+		else{
+			return new $params[0]();
+		}
 	}
 
 
@@ -223,7 +238,8 @@ class Controller {
 	 * @param $data
 	 * @param int $status_code
 	 */
-	public function response($data,$status_code = self::HTTP_OK){
+	public function response($data,$status_code = self::HTTP_OK)
+	{
 		http_response_code($status_code);
 		header('Content-Type: application/json');
 		echo json_encode($data);
@@ -233,7 +249,8 @@ class Controller {
 	 * @param $input
 	 * @return bool|string
 	 */
-    function inputGet($input){
+    function inputGet($input)
+	{
     	if (!empty($_GET[$input])) {
 			$ret  = strip_tags($_GET[$input]);
 	    	return $ret;
@@ -246,7 +263,8 @@ class Controller {
 	 * @param $input
 	 * @return bool|string
 	 */
-	function inputPOST($input){
+	function inputPOST($input)
+	{
 		if (isset($_POST[$input])) {
 			$return  = strip_tags($_POST[$input]);
 	    	return $return;
