@@ -10,7 +10,7 @@ class Main extends Controller
 	public function __construct(){
         parent::__construct();
 
-		$this->store = $this->loadHelper('Txtdb',[
+		$this->store = $this->load->helper('Txtdb',[
 			'dir'      => APP_DIR.'cache/'
 		]);
 
@@ -19,7 +19,7 @@ class Main extends Controller
 
 	public function index(){
 		$data['users'] = $this->store->select('users');
-		$this->render("index",$data);
+		$this->load->view("index",$data);
 	}
 
 

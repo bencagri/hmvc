@@ -12,13 +12,13 @@ class Actions extends Controller
     {
         parent::__construct();
 
-        $this->store = $this->loadHelper('Txtdb',[
+        $this->store = $this->load->helper('Txtdb',[
             'dir'      => APP_DIR.'cache/'
         ]);
 
-        $this->rest  = $this->loadHelper('Rest_Server');
+        $this->rest  = $this->load->helper('Rest_Server');
 
-       $this->loadPlugin('type_control');
+       $this->load->plugin('type_control');
     }
 
 
