@@ -8,6 +8,12 @@ namespace System;
 class Loader
 {
 
+    public function __construct()
+    {
+        //load commen funcitons
+        $this->plugin('trycatch');
+    }
+
     /**
      * @param $name
      * @return mixed
@@ -34,12 +40,12 @@ class Loader
             extract($vars);
             ob_start();
             include (APP_DIR .'views/'. $template .'.php');
-            $renderedView = ob_get_clean();
+            echo ob_get_clean();
         }else{
-            $renderedView = "View Dosyası Yok";
+            $_SESSION['error_message'] = 'View File Missing';
+            redirect('error');
         }
 
-        echo $renderedView;
     }
 
     /**
@@ -65,7 +71,7 @@ class Loader
         else
         {
             $_SESSION['error_message'] = 'Helper File Missing';
-            header('Location : ');
+            redirect('error');
         }
         if(count($params) > 1){
             $class         = $params[0];
