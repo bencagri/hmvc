@@ -10,7 +10,7 @@ class Loader
 
     public function __construct()
     {
-        //load commen funcitons
+        //load common funcitons
         $this->plugin('trycatch');
     }
 

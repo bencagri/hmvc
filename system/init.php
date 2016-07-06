@@ -57,3 +57,13 @@ function start_try_catch_sample_mvc()
 
     die(call_user_func_array(array($obj, $action), array_slice($segments, 2)));
 }
+
+/**
+ * Apply Singleton Pattern
+ * Access loader anywhere
+ * @return \System\Core
+ */
+function & get_instance() {
+    $instance = new System\Core;
+    return $instance::get_instance();
+}

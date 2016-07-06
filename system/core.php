@@ -21,4 +21,8 @@ class Core {
         $this->load = new Loader();
     }
 
+    public static function & get_instance() {
+        return self::$instance;
+    }
+
 }
