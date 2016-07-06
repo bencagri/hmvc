@@ -1,10 +1,10 @@
 <?php
-namespace View;
+namespace System;
 
 /**
  * Class View
  */
-class View {
+class View extends Core{
 
 
     private $pageVars = array();
@@ -12,43 +12,9 @@ class View {
 
 	public function __construct($template, $vars = array())
 	{
-		$this->template = APP_DIR .'views/'. $template .'.php';
-		$this->vars = $vars;
+        parent::__construct();
+
 	}
-
-
-    function render() {
-        
-        if (file_exists($this->template)) {
-            extract($this->vars);
-            ob_start();
-            include ($this->template);
-            $renderedView = ob_get_clean();
-        }else{
-            $renderedView = "View Dosyası Yok";
-        }
-
-        return $renderedView;
-    }
-	
-
-	/*
-
-	public function set($var, $val)
-	{
-		$this->pageVars[$var] = $val;
-	}
-
-	
-	public function render()
-	{
-		extract($this->pageVars);
-
-		ob_start();
-		require($this->template);
-		echo ob_get_clean();
-	}
-	*/
 
 
 }
