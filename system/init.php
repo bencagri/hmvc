@@ -1,10 +1,14 @@
 <?php
 
+spl_autoload_register("autoloader");
+
 require_once('loader.php');
 require_once('core.php');
 require_once('model.php');
 require_once('view.php');
 require_once('controller.php');
+
+
 
 function start_try_catch_sample_mvc()
 {
@@ -66,4 +70,16 @@ function start_try_catch_sample_mvc()
 function & get_instance() {
     $instance = new System\Core;
     return $instance::get_instance();
+}
+
+/**
+ * Autoload classes with PSR-0 standards
+ * @param $className
+ */
+function autoloader($className) {
+    $filename = ROOT_DIR . str_replace('\\', '/', $className) . ".php";
+
+    if (is_readable($filename)) {
+        require_once($filename);
+    }
 }

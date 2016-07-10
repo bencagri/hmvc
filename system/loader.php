@@ -1,12 +1,12 @@
 <?php
 namespace System;
-use System\Interfaces\Loader_Interface;
+use System\Interfaces\Loader_Interface as Loader_Interface;
 
 /**
  * Loader Class
  *
  */
-class Loader
+class Loader implements Loader_Interface
 {
 
 
@@ -85,7 +85,10 @@ class Loader
         }
     }
 
-    protected function _my_autoloader()
+    /**
+     * Autoloader support
+     */
+    public function _my_autoloader()
     {
         if (is_file(APP_DIR . 'config/autoload.php')) {
             require_once(APP_DIR . 'config/autoload.php');
