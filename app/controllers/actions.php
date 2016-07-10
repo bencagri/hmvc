@@ -18,7 +18,7 @@ class Actions extends Controller
 
         $this->rest  = $this->load->helper('Rest_Server');
 
-       $this->load->plugin('type_control');
+        $this->load->plugin('type_control');
     }
 
 

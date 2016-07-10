@@ -1,5 +1,6 @@
 <?php
 namespace System;
+use System\Interfaces\Loader_Interface;
 
 /**
  * Loader Class
@@ -8,10 +9,11 @@ namespace System;
 class Loader
 {
 
+
     public function __construct()
     {
-        //load common funcitons
         $this->plugin('trycatch');
+        $this->_my_autoloader();
     }
 
     /**
@@ -34,7 +36,8 @@ class Loader
      * @param $vars array
      * @return string
      */
-    function view($template,$vars = []) {
+    function view($template,$vars = [])
+    {
 
         if (file_exists(APP_DIR .'views/'. $template .'.php')) {
             extract($vars);
@@ -63,10 +66,10 @@ class Loader
     {
         $params = func_get_args();
 
-        $path = APP_DIR .'helpers/'. strtolower($params[0]) .'.php';
+        $file = APP_DIR .'helpers/'. strtolower($params[0]) .'.php';
 
-        if(is_file($path)){
-            require_once($path);
+        if(is_file($file)){
+            require_once($file);
         }
         else
         {
@@ -80,6 +83,39 @@ class Loader
         else{
             return new $params[0]();
         }
+    }
+
+    protected function _my_autoloader()
+    {
+        if (is_file(APP_DIR . 'config/autoload.php')) {
+            require_once(APP_DIR . 'config/autoload.php');
+        }
+
+        if (!isset($autoload)) {
+            return;
+        }
+
+        //load helpers
+        if (isset($autoload['helpers'])){
+            foreach ($autoload['helpers'] as $item) {
+                $this->helper($item);
+            }
+        }
+
+        //load plugins
+        if (isset($autoload['plugins'])) {
+            foreach ($autoload['plugins'] as $item) {
+                $this->plugin($item);
+            }
+        }
+
+        //load models
+        if (isset($autoload['models'])) {
+            foreach ($autoload['models'] as $item) {
+                $this->model($item);
+            }
+        }
+
     }
 
 }
