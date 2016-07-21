@@ -3,17 +3,17 @@
 /**
  * Autoload Models
  */
-$autoload['models'] = [];
+$config['autoload']['models'] = [];
 
 
 /**
  * Autoload Helpers
  */
-$autoload['helpers'] = [];
+$config['autoload']['libraries'] = [];
 
 
 /**
  * Autoload plugins
- * ie. $autoload['plugins'] = ['plugin1','plugin2'];
+ * ie. $config['autoload']['plugins'] = ['plugin1','plugin2'];
  */
-$autoload['plugins'] = ['trycatch','type_control'];
+$config['autoload']['helpers'] = [];

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
-use System\Controller;
+use System\Core\Controller;
+use System\Template\Template;
 
 class Error extends Controller {
 
@@ -17,7 +18,7 @@ class Error extends Controller {
 	
 	public function error404()
 	{
-		$this->load->view('error/error');
+		Template::view('error/error');
 
 	}
     

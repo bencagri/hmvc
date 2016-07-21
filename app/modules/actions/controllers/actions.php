@@ -1,7 +1,12 @@
 <?php
-namespace App\Controllers;
-use System\Controller;
+namespace App\Modules\Actions\Controllers;
+use System\Core\Controller;
+use System\Core\Loader;
 
+/**
+ * Class Actions
+ * @package App\Controllers
+ */
 class Actions extends Controller
 {
 
@@ -12,14 +17,15 @@ class Actions extends Controller
     {
         parent::__construct();
 
-        $this->store = $this->load->helper('Txtdb',[
-            'dir'      => APP_DIR.'cache/'
-        ]);
+        //call our model to use on every method
+        $this->store = Loader::model('actions/user_model');
 
-        $this->rest  = $this->load->helper('Rest_Server');
+        $this->rest  = Loader::library('Rest_Server');
 
-        $this->load->plugin('type_control');
+        Loader::helper('type_control');
+
     }
+
 
 
     /**
@@ -33,7 +39,7 @@ class Actions extends Controller
             $this->table = $this->inputGet('table');
         }
 
-        $data = $this->store->select($this->table);
+        $data = $this->store->get_users();
 
         if(empty($data)){
             $response = [
@@ -87,7 +93,7 @@ class Actions extends Controller
 
         }else{
 
-            $insert = $this->store->insert('users',$data);
+            $insert = $this->store->add_user($data);
 
             if($insert){
                 $response = ['status' => 'success', 'data' => ['id' => $insert]];
@@ -137,7 +143,7 @@ class Actions extends Controller
             return $this->rest->response($response,$this->rest->get_status('HTTP_BAD_REQUEST'));
 
         }else{
-            $insert = $this->store->update('users',$data,$id);
+            $insert = $this->store->update_user($data,$id);
 
             if($insert){
                 $response = ['status' => 'success', 'data' => ['id' => $insert]];
@@ -175,7 +181,7 @@ class Actions extends Controller
 
         }else{
 
-            $delete = $this->store->delete('users',$id);
+            $delete = $this->store->delete_user($id);
 
             if($delete !== false){
                 $response = ['status' => 'success', 'message' => 'Record has been deleted'];
