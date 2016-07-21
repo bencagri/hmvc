@@ -6,7 +6,11 @@
 //Start the Session
 session_start(); 
 
-// Defines
+//
+define('ENVIRONMENT','development');
+
+
+define('DS',DIRECTORY_SEPARATOR);
 define('ROOT_DIR', realpath(dirname(__FILE__)) .'/');
 define('APP_DIR', ROOT_DIR .'app/');
 
@@ -16,7 +20,8 @@ require(ROOT_DIR .'system/init.php');
 
 // Define base URL
 global $config;
-define('BASE_URL', $config['base_url']);
+define('BASE_URL', $config['config']['base_url']);
 
-//
-start_try_catch_sample_mvc();
+
+//Run
+System\Core::init();

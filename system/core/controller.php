@@ -1,5 +1,6 @@
 <?php
-namespace System;
+namespace System\Core;
+use System\Core;
 
 /**
  * Controller Class

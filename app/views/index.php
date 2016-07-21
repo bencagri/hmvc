@@ -11,21 +11,21 @@ Try Catch Restful CRUD operations Sample Task
     <tr>
         <td>List all users</td>
         <td>(GET)</td>
-        <td>/actions</td>
+        <td>/api</td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td>Add new user</td>
         <td>(POST)</td>
-        <td>/actions/add</td>
+        <td>/api/post</td>
         <td><strong>name,email,number</strong></td>
         <td></td>
     </tr>
     <tr>
         <td>Update user</td>
         <td>(POST)</td>
-        <td>/actions/update</td>
+        <td>/api/update</td>
         <td><strong>id</strong></td>
         <td><strong>name,email,number</strong></td>
     </tr>
@@ -33,7 +33,7 @@ Try Catch Restful CRUD operations Sample Task
     <tr>
         <td>Delete users</td>
         <td>(POST)</td>
-        <td>/actions/delete</td>
+        <td>/api/delete</td>
         <td><strong>id</strong></td>
         <td></td>
     </tr>

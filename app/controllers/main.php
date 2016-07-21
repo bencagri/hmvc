@@ -1,29 +1,26 @@
 <?php
 namespace App\Controllers;
-use System\Controller;
 
-class Main extends Controller
+use System\Core\Loader;
+use System\Template\Template;
+use App\Core\My_Controller;
+
+class Main extends My_Controller
 {
 
-	protected $store;
 
 	public function __construct(){
         parent::__construct();
 
-		$this->store = $this->load->helper('Txtdb',[
-			'dir'  => APP_DIR.'cache/'
-		]);
-
 	}
-
 
 	public function index(){
 
-		//function inside autoloaded plugin
-		//var_dump(number_control(2));
+		$model = Loader::model('actions/user_model');
 
-		$data['users'] = $this->store->select('users');
-		$this->load->view("index",$data);
+		$data['users'] = $model->get_users();
+
+		Template::view("index",$data);
 	}
 
 
