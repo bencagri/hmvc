@@ -78,5 +78,5 @@ Loader::helper('type_control'); //in app/libraries directory
 ### Template
 
 ```
-Template::view('index',['foo' => 'bar','baz'=> 'foo']); //loads app/view/index with parameters
+Template::view('index',['foo' => 'bar','baz'=> 'foo']); //loads app/view/index with variables
 ```
