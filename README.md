@@ -1,8 +1,8 @@
-# SAMPLE-TASK
+# HMVC Framework Sample
 
-This is a sample application v2 for Try Catch
+This is a sample application. Dont use in production.
 
-## Changelog
+## v2.0 Changelog
 
 * HMVC modular system is implemented
 * Any library,helper,model and config can be used separately inside any module.
